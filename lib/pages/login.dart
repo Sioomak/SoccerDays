@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:soccer_days/pages/signup.dart';
 import 'package:soccer_days/utilities/constants.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -231,7 +232,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildSignupBtn() {
     return GestureDetector(
-      onTap: () => print('Sign Up Button Pressed'),
+      onTap: () => {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SignUp(),
+          ),
+        ),
+      },
       child: RichText(
         text: TextSpan(
           children: [
