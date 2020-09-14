@@ -283,13 +283,33 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.all(50.0),
-                child: Image.asset(
-                  'assets/logos/ClipartKey_56184.png',
-                  width: 70,
-                  height: 70,
-                ),
+              Row(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.all(30.0),
+                    child: Image.asset(
+                      'assets/logos/ClipartKey_56184.png',
+                      width: 50,
+                      height: 50,
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(40.0),
+                    child: Image.asset(
+                      'assets/logos/ClipartKey_56184.png',
+                      width: 70,
+                      height: 70,
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(30.0),
+                    child: Image.asset(
+                      'assets/logos/ClipartKey_56184.png',
+                      width: 50,
+                      height: 50,
+                    ),
+                  ),
+                ],
               ),
               Container(
                 height: double.infinity,
@@ -302,15 +322,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(
-                        'Sign In',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'OpenSans',
-                          fontSize: 40.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+//                      Text(
+//                        'Sign In',
+//                        style: TextStyle(
+//                          color: Colors.white,
+//                          fontFamily: 'OpenSans',
+//                          fontSize: 40.0,
+//                          fontWeight: FontWeight.bold,
+//                        ),
+//                      ),
                       SizedBox(height: 30.0),
                       _buildEmailTF(),
                       SizedBox(
