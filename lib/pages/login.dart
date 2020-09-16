@@ -302,15 +302,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(
-                        'Sign In',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'OpenSans',
-                          fontSize: 40.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
                       SizedBox(height: 30.0),
                       _buildEmailTF(),
                       SizedBox(
