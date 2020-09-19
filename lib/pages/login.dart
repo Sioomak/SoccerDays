@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:soccer_days/utilities/constants.dart';
 import 'package:soccer_days/pages/signup.dart';
-import 'package:email_validator/email_validator.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -11,6 +10,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  String _email;
+  String _password;
   bool _rememberMe = false;
 
   Widget _buildEmailTF() {
@@ -26,7 +27,18 @@ class _LoginScreenState extends State<LoginScreen> {
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
           height: 70.0,
-          child: TextField(
+          child: TextFormField(
+            validator: (String value) {
+              if (value.isEmpty) {
+                return "Please enter your email";
+              } else if (value.length <= 5) {
+                return "Email should be at least 6 characters";
+              }
+              return null;
+            },
+            onSaved: (String value) {
+              _email = value;
+            },
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(
               color: Colors.white,
@@ -49,48 +61,48 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildPasswordTF() {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            'Password',
-            style: kLabelStyle,
-          ),
-          SizedBox(height: 10.0),
-          Container(
-            alignment: Alignment.centerLeft,
-            decoration: kBoxDecorationStyle,
-            height: 70.0,
-            child: TextFormField(
-              validator: (value) {
-                if (value.isEmpty) {
-                  return "Please enter your password";
-                } else if (value.length <= 5) {
-                  return "Password should be at least 6 characters";
-                } else
-                  return null;
-              },
-              obscureText: true,
-              style: TextStyle(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Password',
+          style: kLabelStyle,
+        ),
+        SizedBox(height: 10.0),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 70.0,
+          child: TextFormField(
+            validator: (String value) {
+              if (value.isEmpty) {
+                return "Please enter your password";
+              } else if (value.length <= 5) {
+                return "Password should be at least 6 characters";
+              }
+              return null;
+            },
+            onSaved: (String value) {
+              _password = value;
+            },
+            obscureText: true,
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'OpenSans',
+            ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14.0),
+              prefixIcon: Icon(
+                Icons.lock,
                 color: Colors.white,
-                fontFamily: 'OpenSans',
               ),
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.only(top: 14.0),
-                prefixIcon: Icon(
-                  Icons.lock,
-                  color: Colors.white,
-                ),
-                hintText: 'Enter your Password',
-                hintStyle: kHintTextStyle,
-              ),
+              hintText: 'Enter your Password',
+              hintStyle: kHintTextStyle,
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -142,9 +154,10 @@ class _LoginScreenState extends State<LoginScreen> {
       child: RaisedButton(
         elevation: 5.0,
         onPressed: () {
-          if (_formKey.currentState.validate()) {
-            print('your data is submitted');
+          if (!_formKey.currentState.validate()) {
+            return;
           }
+          _formKey.currentState.save();
         },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
@@ -308,22 +321,25 @@ class _LoginScreenState extends State<LoginScreen> {
                     horizontal: 40.0,
                     vertical: 100.0,
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(height: 30.0),
-                      _buildEmailTF(),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      _buildPasswordTF(),
-                      _buildForgotPasswordBtn(),
-                      _buildRememberMeCheckbox(),
-                      _buildLoginBtn(),
-                      _buildSignInWithText(),
-                      _buildSocialBtnRow(),
-                      _buildSignupBtn(),
-                    ],
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(height: 30.0),
+                        _buildEmailTF(),
+                        SizedBox(
+                          height: 30.0,
+                        ),
+                        _buildPasswordTF(),
+                        _buildForgotPasswordBtn(),
+                        _buildRememberMeCheckbox(),
+                        _buildLoginBtn(),
+                        _buildSignInWithText(),
+                        _buildSocialBtnRow(),
+                        _buildSignupBtn(),
+                      ],
+                    ),
                   ),
                 ),
               )
@@ -334,3 +350,12 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+
+//Form(
+//key: _formKey,
+//child: ListView(
+//children: <Widget>[
+//_buildUsernameTF(),
+//_buildPasswordTF()
+//)
+//)

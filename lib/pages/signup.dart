@@ -9,10 +9,17 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final _formKey = GlobalKey<FormState>();
+  bool _validate = false;
   bool _rememberMe = false;
+  bool _autoValidate = false;
+  String _name;
+  String _email;
+  String _mobile;
 
   Widget _buildFullNameTF() {
     return Form(
+      autovalidate: _validate,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -28,7 +35,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: TextFormField(
               validator: (value) {
                 if (value.isEmpty) {
-                  return "Email cannot be empty";
+                  return "Name is required";
                 } else
                   return null;
               },
@@ -60,7 +67,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            'Phone No',
+            'Phone Number',
             style: kLabelStyle,
           ),
           SizedBox(height: 10.0),
@@ -87,7 +94,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Icons.phone,
                   color: Colors.white,
                 ),
-                hintText: 'Enter your Phone no',
+                hintText: 'Enter your phone number',
                 hintStyle: kHintTextStyle,
               ),
             ),
@@ -232,7 +239,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () => print('Login Button Pressed'),
+        onPressed: () {
+          if (_formKey.currentState.validate()) {
+            print('new Sing up data submitted');
+          }
+        },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
@@ -268,6 +279,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _formKey,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: GestureDetector(
