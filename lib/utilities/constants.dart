@@ -6,6 +6,7 @@ final kHintTextStyle = TextStyle(
 );
 
 final kLabelStyle = TextStyle(
+  fontSize: 15.0,
   color: Colors.white,
   fontWeight: FontWeight.bold,
   fontFamily: 'OpenSans',

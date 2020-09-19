@@ -10,34 +10,36 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
-  bool _validate = false;
-  bool _rememberMe = false;
-  bool _autoValidate = false;
   String _name;
+  String _phoneNumber;
   String _email;
-  String _mobile;
+  String _password;
+  String _confirmPassword;
 
   Widget _buildFullNameTF() {
-    return Form(
-      autovalidate: _validate,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            'Full Name',
-            style: kLabelStyle,
-          ),
-          SizedBox(height: 10.0),
-          Container(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Full Name',
+          style: kLabelStyle,
+        ),
+        SizedBox(height: 10.0),
+        Opacity(
+          opacity: 0.9,
+          child: Container(
             alignment: Alignment.centerLeft,
             decoration: kBoxDecorationStyle,
             height: 50.0,
             child: TextFormField(
               validator: (value) {
                 if (value.isEmpty) {
-                  return "Name is required";
+                  return "Please enter your name";
                 } else
                   return null;
+              },
+              onSaved: (String value) {
+                _name = value;
               },
               keyboardType: TextInputType.text,
               style: TextStyle(
@@ -56,31 +58,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   Widget _buildPhoneNumberTF() {
-    return Form(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            'Phone Number',
-            style: kLabelStyle,
-          ),
-          SizedBox(height: 10.0),
-          Container(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Phone Number',
+          style: kLabelStyle,
+        ),
+        SizedBox(height: 10.0),
+        Opacity(
+          opacity: 0.8,
+          child: Container(
             alignment: Alignment.centerLeft,
             decoration: kBoxDecorationStyle,
             height: 50.0,
             child: TextFormField(
               validator: (value) {
                 if (value.isEmpty) {
-                  return "Email cannot be empty";
+                  return "Please enter your phone number";
                 } else
                   return null;
+              },
+              onSaved: (String value) {
+                _phoneNumber = value;
               },
               keyboardType: TextInputType.number,
               style: TextStyle(
@@ -99,31 +105,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   Widget _buildEmailTF() {
-    return Form(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            'Email',
-            style: kLabelStyle,
-          ),
-          SizedBox(height: 10.0),
-          Container(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Email',
+          style: kLabelStyle,
+        ),
+        SizedBox(height: 10.0),
+        Opacity(
+          opacity: 0.8,
+          child: Container(
             alignment: Alignment.centerLeft,
             decoration: kBoxDecorationStyle,
             height: 50.0,
             child: TextFormField(
               validator: (value) {
                 if (value.isEmpty) {
-                  return "Email cannot be empty";
+                  return "Please enter your email";
                 } else
                   return null;
+              },
+              onSaved: (String value) {
+                _email = value;
               },
               keyboardType: TextInputType.emailAddress,
               style: TextStyle(
@@ -142,8 +152,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -157,31 +167,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
             style: kLabelStyle,
           ),
           SizedBox(height: 10.0),
-          Container(
-            alignment: Alignment.centerLeft,
-            decoration: kBoxDecorationStyle,
-            height: 50.0,
-            child: TextFormField(
-              validator: (value) {
-                if (value.isEmpty) {
-                  return "Please enter your password";
-                } else
-                  return null;
-              },
-              obscureText: true,
-              style: TextStyle(
-                color: Colors.white,
-                fontFamily: 'OpenSans',
-              ),
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.only(top: 14.0),
-                prefixIcon: Icon(
-                  Icons.lock,
+          Opacity(
+            opacity: 0.8,
+            child: Container(
+              alignment: Alignment.centerLeft,
+              decoration: kBoxDecorationStyle,
+              height: 50.0,
+              child: TextFormField(
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return "Please enter your password";
+                  } else
+                    return null;
+                },
+                onSaved: (String value) {
+                  _password = value;
+                },
+                obscureText: true,
+                style: TextStyle(
                   color: Colors.white,
+                  fontFamily: 'OpenSans',
                 ),
-                hintText: 'Enter your Password',
-                hintStyle: kHintTextStyle,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.only(top: 14.0),
+                  prefixIcon: Icon(
+                    Icons.lock,
+                    color: Colors.white,
+                  ),
+                  hintText: 'Enter your Password',
+                  hintStyle: kHintTextStyle,
+                ),
               ),
             ),
           ),
@@ -191,25 +207,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Widget _buildConfirmPasswordTF() {
-    return Form(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            'Confirm Password',
-            style: kLabelStyle,
-          ),
-          SizedBox(height: 10.0),
-          Container(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Confirm Password',
+          style: kLabelStyle,
+        ),
+        SizedBox(height: 10.0),
+        Opacity(
+          opacity: 0.8,
+          child: Container(
             alignment: Alignment.centerLeft,
             decoration: kBoxDecorationStyle,
             height: 50.0,
             child: TextFormField(
               validator: (value) {
                 if (value.isEmpty) {
-                  return "Enter your password";
+                  return "Please confirm your password";
                 } else
                   return null;
+              },
+              onSaved: (String value) {
+                _confirmPassword = value;
               },
               obscureText: true,
               style: TextStyle(
@@ -228,8 +248,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -242,7 +262,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         onPressed: () {
           if (_formKey.currentState.validate()) {
             print('new Sing up data submitted');
+            return;
           }
+          _formKey.currentState.save();
         },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
@@ -279,7 +301,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _formKey,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: GestureDetector(
@@ -303,34 +324,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+              Opacity(
+                opacity: 0.5,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.all(30.0),
-                      child: Image.asset(
-                        'assets/logos/ClipartKey_56184.png',
-                        width: 50,
-                        height: 50,
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(40.0),
-                      child: Image.asset(
-                        'assets/logos/ClipartKey_56184.png',
-                        width: 70,
-                        height: 70,
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(30.0),
-                      child: Image.asset(
-                        'assets/logos/ClipartKey_56184.png',
-                        width: 50,
-                        height: 50,
-                      ),
+                    Image.asset(
+                      'assets/logos/ClipartKey_56184.png',
+                      width: 550,
+                      height: 550,
                     ),
                   ],
                 ),
@@ -343,9 +345,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     horizontal: 40.0,
                     vertical: 100.0,
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
 //                      Text(
 //                        'Sign In',
 //                        style: TextStyle(
@@ -355,21 +359,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
 //                          fontWeight: FontWeight.bold,
 //                        ),
 //                      ),
-                      SizedBox(height: 30.0),
-                      _buildFullNameTF(),
-                      SizedBox(height: 20.0),
-                      _buildPhoneNumberTF(),
-                      SizedBox(height: 20.0),
-                      _buildEmailTF(),
-                      SizedBox(height: 20.0),
-                      _buildPasswordTF(),
-                      SizedBox(height: 20.0),
-                      _buildConfirmPasswordTF(),
-                      SizedBox(height: 30.0),
-                      _buildRegisterBtn(),
-                      SizedBox(height: 20.0),
-                      _buildReturnToLoginBtn(),
-                    ],
+                        SizedBox(height: 30.0),
+                        _buildFullNameTF(),
+                        SizedBox(height: 20.0),
+                        _buildPhoneNumberTF(),
+                        SizedBox(height: 20.0),
+                        _buildEmailTF(),
+                        SizedBox(height: 20.0),
+                        _buildPasswordTF(),
+                        SizedBox(height: 20.0),
+                        _buildConfirmPasswordTF(),
+                        SizedBox(height: 30.0),
+                        _buildRegisterBtn(),
+                        _buildReturnToLoginBtn(),
+                      ],
+                    ),
                   ),
                 ),
               )
