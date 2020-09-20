@@ -211,11 +211,11 @@ class _LoginScreenState extends State<LoginScreen> {
             fontWeight: FontWeight.w400,
           ),
         ),
-        SizedBox(height: 20.0),
-        Text(
-          'Sign in with',
-          style: kLabelStyle,
-        ),
+//        SizedBox(height: 20.0),
+//        Text(
+//          'Sign in with',
+//          style: kLabelStyle,
+//        ),
       ],
     );
   }
@@ -362,9 +362,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         _buildPasswordTF(),
                         _buildForgotPasswordBtn(),
                         _buildRememberMeCheckbox(),
+                        SizedBox(height: 30.0),
                         _buildLoginBtn(),
                         _buildSignInWithText(),
                         _buildSocialBtnRow(),
+                        SizedBox(height: 30.0),
                         _buildSignupBtn(),
                       ],
                     ),
@@ -378,12 +380,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
-//Form(
-//key: _formKey,
-//child: ListView(
-//children: <Widget>[
-//_buildUsernameTF(),
-//_buildPasswordTF()
-//)
-//)
