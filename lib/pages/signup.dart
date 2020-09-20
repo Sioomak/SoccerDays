@@ -324,15 +324,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               Opacity(
                 opacity: 0.5,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/logos/ClipartKey_56184.png',
-                      width: 550,
-                      height: 550,
-                    ),
-                  ],
+                child: Container(
+                  margin: const EdgeInsets.fromLTRB(20, 150, 20, 20),
+                  child: Image.asset(
+                    'assets/logos/ClipartKey_56184.png',
+//                    width: 550,
+//                    height: 550,
+                  ),
                 ),
               ),
               Container(
