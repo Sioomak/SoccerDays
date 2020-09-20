@@ -13,15 +13,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String _name;
   String _phoneNumber;
   String _email;
-  String _password;
-  String _confirmPassword;
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _confirmPass = TextEditingController();
 
-  Widget _buildFullNameTF() {
+  Widget _buildFirstNameTF() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Full Name',
+          'First Name',
           style: kLabelStyle,
         ),
         SizedBox(height: 10.0),
@@ -34,7 +34,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: TextFormField(
               validator: (value) {
                 if (value.isEmpty) {
-                  return "Please enter your name";
+                  return "Please enter your first name";
                 } else
                   return null;
               },
@@ -53,7 +53,54 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Icons.person,
                   color: Colors.white,
                 ),
-                hintText: 'Enter your Name',
+                hintText: 'Enter your first name',
+                hintStyle: kHintTextStyle,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLastNameTF() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Last Name',
+          style: kLabelStyle,
+        ),
+        SizedBox(height: 10.0),
+        Opacity(
+          opacity: 0.9,
+          child: Container(
+            alignment: Alignment.centerLeft,
+            decoration: kBoxDecorationStyle,
+            height: 50.0,
+            child: TextFormField(
+              validator: (value) {
+                if (value.isEmpty) {
+                  return "Please enter your last name";
+                } else
+                  return null;
+              },
+              onSaved: (String value) {
+                _name = value;
+              },
+              keyboardType: TextInputType.text,
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'OpenSans',
+              ),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.only(top: 14.0),
+                prefixIcon: Icon(
+                  Icons.person,
+                  color: Colors.white,
+                ),
+                hintText: 'Enter your last name',
                 hintStyle: kHintTextStyle,
               ),
             ),
@@ -173,14 +220,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
             decoration: kBoxDecorationStyle,
             height: 50.0,
             child: TextFormField(
+              controller: _password,
               validator: (value) {
                 if (value.isEmpty) {
                   return "Please confirm your password";
                 } else
                   return null;
-              },
-              onSaved: (String value) {
-                _password = value;
               },
               obscureText: true,
               style: TextStyle(
@@ -220,14 +265,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
             decoration: kBoxDecorationStyle,
             height: 50.0,
             child: TextFormField(
+              controller: _confirmPass,
               validator: (value) {
                 if (value.isEmpty) {
                   return "Please confirm your password";
-                } else
-                  return null;
-              },
-              onSaved: (String value) {
-                _confirmPassword = value;
+                }
+                if (value != _password.text)
+                  return 'Password and confirmation password do not match.';
+                return null;
               },
               obscureText: true,
               style: TextStyle(
@@ -355,11 +400,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
 //                          fontWeight: FontWeight.bold,
 //                        ),
 //                      ),
-                        SizedBox(height: 30.0),
-                        _buildFullNameTF(),
+                        _buildFirstNameTF(),
                         SizedBox(height: 20.0),
-                        _buildPhoneNumberTF(),
+                        _buildLastNameTF(),
                         SizedBox(height: 20.0),
+//                        _buildPhoneNumberTF(),
                         _buildEmailTF(),
                         SizedBox(height: 20.0),
                         _buildPasswordTF(),
