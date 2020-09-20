@@ -13,6 +13,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String _email;
   String _password;
   bool _rememberMe = false;
+  bool _obscureText = true;
 
   Widget _buildEmailTF() {
     return Column(
@@ -32,9 +33,12 @@ class _LoginScreenState extends State<LoginScreen> {
             child: TextFormField(
               validator: (String value) {
                 if (value.isEmpty) {
-                  return "Please enter your email";
-                } else if (value.length <= 5) {
-                  return "Email should be at least 6 characters";
+                  return 'Please enter your email';
+                }
+                if (!RegExp(
+                        r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                    .hasMatch(value)) {
+                  return 'Please enter a valid email Address';
                 }
                 return null;
               },
@@ -90,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
               onSaved: (String value) {
                 _password = value;
               },
-              obscureText: true,
+              obscureText: _obscureText,
               style: TextStyle(
                 color: Colors.white,
                 fontFamily: 'OpenSans',
@@ -101,6 +105,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 prefixIcon: Icon(
                   Icons.lock,
                   color: Colors.white,
+                ),
+                suffixIcon: IconButton(
+                  color: Colors.white,
+                  icon: Icon(
+                      _obscureText ? Icons.visibility : Icons.visibility_off),
+                  onPressed: () {
+                    setState(() {
+                      _obscureText = !_obscureText;
+                    });
+                  },
                 ),
                 hintText: 'Enter your Password',
                 hintStyle: kHintTextStyle,

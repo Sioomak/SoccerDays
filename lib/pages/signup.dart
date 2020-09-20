@@ -158,51 +158,49 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Widget _buildPasswordTF() {
-    return Form(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            'Password',
-            style: kLabelStyle,
-          ),
-          SizedBox(height: 10.0),
-          Opacity(
-            opacity: 0.8,
-            child: Container(
-              alignment: Alignment.centerLeft,
-              decoration: kBoxDecorationStyle,
-              height: 50.0,
-              child: TextFormField(
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return "Please enter your password";
-                  } else
-                    return null;
-                },
-                onSaved: (String value) {
-                  _password = value;
-                },
-                obscureText: true,
-                style: TextStyle(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Password',
+          style: kLabelStyle,
+        ),
+        SizedBox(height: 10.0),
+        Opacity(
+          opacity: 0.8,
+          child: Container(
+            alignment: Alignment.centerLeft,
+            decoration: kBoxDecorationStyle,
+            height: 50.0,
+            child: TextFormField(
+              validator: (value) {
+                if (value.isEmpty) {
+                  return "Please confirm your password";
+                } else
+                  return null;
+              },
+              onSaved: (String value) {
+                _password = value;
+              },
+              obscureText: true,
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'OpenSans',
+              ),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.only(top: 14.0),
+                prefixIcon: Icon(
+                  Icons.lock,
                   color: Colors.white,
-                  fontFamily: 'OpenSans',
                 ),
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(top: 14.0),
-                  prefixIcon: Icon(
-                    Icons.lock,
-                    color: Colors.white,
-                  ),
-                  hintText: 'Enter your Password',
-                  hintStyle: kHintTextStyle,
-                ),
+                hintText: 'Enter your Password',
+                hintStyle: kHintTextStyle,
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
