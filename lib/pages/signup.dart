@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:soccer_days/pages/login.dart';
 import 'package:soccer_days/utilities/constants.dart';
 
 class SignUpScreen extends StatefulWidget {

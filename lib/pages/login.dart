@@ -16,6 +16,7 @@ class _LoginScreenState extends State<LoginScreen>
   String _password;
   bool _rememberMe = false;
   bool _obscureText = true;
+  bool isLoading = false;
 
   AnimationController controller;
   Animation animation;
@@ -29,11 +30,11 @@ class _LoginScreenState extends State<LoginScreen>
       upperBound: 120.0,
     );
 
-    controller.forward();
-    controller.addListener(() {
-      setState(() {});
-      print(controller.value);
-    });
+//    controller.forward();
+//    controller.addListener(() {
+//      setState(() {});
+//      print(controller.value);
+//    });
   }
 
   Widget _buildEmailTF() {
@@ -194,30 +195,39 @@ class _LoginScreenState extends State<LoginScreen>
       width: double.infinity,
       child: Opacity(
         opacity: 0.7,
-        child: RaisedButton(
-          elevation: 5.0,
-          onPressed: () {
-            if (!_formKey.currentState.validate()) {
-              return;
-            }
-            _formKey.currentState.save();
-          },
-          padding: EdgeInsets.all(15.0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          color: Colors.white,
-          child: Text(
-            'LOG IN',
-            style: TextStyle(
-              color: Color(0xFF3b5249),
-              letterSpacing: 1.5,
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'OpenSans',
-            ),
-          ),
-        ),
+        child: isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : RaisedButton(
+                elevation: 5.0,
+                onPressed: () {
+                  setState(() {
+                    isLoading = true;
+                  });
+                  print(isLoading);
+
+                  if (!_formKey.currentState.validate()) {
+                    return;
+                  }
+                  _formKey.currentState.save();
+                },
+                padding: EdgeInsets.all(15.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                color: Colors.white,
+                child: Text(
+                  'LOG IN',
+                  style: TextStyle(
+                    color: Color(0xFF3b5249),
+                    letterSpacing: 1.5,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'OpenSans',
+                  ),
+                ),
+              ),
       ),
     );
   }
@@ -348,7 +358,7 @@ class _LoginScreenState extends State<LoginScreen>
                 speed: Duration(milliseconds: 200),
                 pause: Duration(milliseconds: 1500),
                 alignment: AlignmentDirectional.topStart,
-                repeatForever: false,
+                isRepeatingAnimation: false,
                 text: ['SOCCER DAY ! '],
                 textStyle: TextStyle(
                   fontFamily: 'OpenSans',
@@ -372,6 +382,8 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   Widget build(BuildContext context) {
+//    progressDialog = ProgressDialog(context, ProgressDialogType.Normal);
+
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,

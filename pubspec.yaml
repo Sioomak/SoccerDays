@@ -12,6 +12,7 @@ environment:
 dependencies:
   email_validator: ^1.0.0
   animated_text_kit: ^2.2.0
+
   flutter:
     sdk: flutter
 
