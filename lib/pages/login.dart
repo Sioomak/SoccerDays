@@ -17,13 +17,13 @@ class _LoginScreenState extends State<LoginScreen>
   bool _obscureText = true;
 
   AnimationController controller;
-
   @override
   void initState() {
     super.initState();
     controller = AnimationController(
-      duration: Duration(milliseconds: 800),
+      duration: Duration(seconds: 1),
       vsync: this,
+      upperBound: 120.0,
     );
 
     controller.forward();
@@ -321,43 +321,46 @@ class _LoginScreenState extends State<LoginScreen>
   }
 
   Widget _buildLogo() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 5.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Opacity(
-                opacity: 0.9,
-                child: Container(
-                  child: Hero(
-                    tag: 'soccerBall',
-                    child: Image.asset('assets/logos/ClipartKey_56184.png'),
-                  ),
-                  height: 120.0,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Opacity(
+              opacity: 0.9,
+              child: Container(
+                child: Hero(
+                  tag: 'soccerBall',
+                  child: Image.asset('assets/logos/ClipartKey_56184.png'),
+                ),
+                height: controller.value,
+              ),
+            ),
+            SizedBox(
+              width: 10.0,
+            ),
+            Flexible(
+              child: Text(
+                'SOCCER DAY',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: 42.0,
+                  shadows: <Shadow>[
+                    Shadow(
+                        offset: Offset(2.0, 2.0),
+                        blurRadius: 3.0,
+                        color: Colors.white),
+                  ],
                 ),
               ),
-              SizedBox(
-                width: 10.0,
-              ),
-              Flexible(
-                child: Text(
-                  'SOCCER DAY',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'OpenSans',
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 40.0,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -379,9 +382,9 @@ class _LoginScreenState extends State<LoginScreen>
                     end: Alignment.bottomCenter,
                     colors: [
                       Color(0xFF519872),
-                      Color(0xFF158467).withOpacity(controller.value),
-                      Color(0xFF206a5d).withOpacity(controller.value),
-                      Color(0xFF184d47).withOpacity(controller.value),
+                      Color(0xFF158467),
+                      Color(0xFF206a5d),
+                      Color(0xFF184d47),
                     ],
                     stops: [0.1, 0.4, 0.7, 0.9],
                   ),

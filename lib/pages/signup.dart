@@ -17,17 +17,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _confirmPass = TextEditingController();
 
   Widget _buildBackArrow() {
-    return Align(
-      alignment: Alignment.topLeft,
-      child: FlatButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: Icon(
-          Icons.arrow_back_ios,
-          size: 40.0,
-          color: Colors.white,
-        ),
+    return FlatButton(
+      padding: EdgeInsets.only(right: 700),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+      child: Icon(
+        Icons.arrow_back_ios,
+        size: 36.0,
+        color: Colors.white,
       ),
     );
   }
