@@ -17,6 +17,7 @@ class _LoginScreenState extends State<LoginScreen>
   bool _rememberMe = false;
   bool _obscureText = true;
   bool isLoading = false;
+  bool logingIn = true;
 
   AnimationController controller;
   Animation animation;
@@ -53,6 +54,7 @@ class _LoginScreenState extends State<LoginScreen>
             decoration: kBoxDecorationStyle,
             height: 70.0,
             child: TextFormField(
+              enabled: logingIn,
               validator: (String value) {
                 if (value.isEmpty) {
                   return 'Please enter your email';
@@ -105,6 +107,7 @@ class _LoginScreenState extends State<LoginScreen>
             decoration: kBoxDecorationStyle,
             height: 70.0,
             child: TextFormField(
+              enabled: logingIn,
               validator: (String value) {
                 if (value.isEmpty) {
                   return "Please enter your password";
@@ -204,6 +207,7 @@ class _LoginScreenState extends State<LoginScreen>
                 onPressed: () {
                   setState(() {
                     isLoading = true;
+                    logingIn = false;
                   });
                   print(isLoading);
 
