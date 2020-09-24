@@ -311,12 +311,15 @@ class _LoginScreenState extends State<LoginScreen> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Container(
-                child: Hero(
-                  tag: 'soccerBall',
-                  child: Image.asset('assets/logos/ClipartKey_56184.png'),
+              Opacity(
+                opacity: 0.9,
+                child: Container(
+                  child: Hero(
+                    tag: 'soccerBall',
+                    child: Image.asset('assets/logos/ClipartKey_56184.png'),
+                  ),
+                  height: 120.0,
                 ),
-                height: 120.0,
               ),
               SizedBox(
                 width: 10.0,

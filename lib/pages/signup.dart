@@ -332,7 +332,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Column(
       children: <Widget>[
         RaisedButton(
-          child: Text('Go to Login Page'),
+          elevation: 5.0,
+          padding: EdgeInsets.all(20.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          color: Colors.white,
+          child: Text(
+            'Back to Login Page',
+            style: TextStyle(
+              color: Color(0xFF3b5249),
+              letterSpacing: 1.5,
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'openSans',
+            ),
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
