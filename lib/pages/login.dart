@@ -302,6 +302,44 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  Widget _buildBallImage() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 5.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                child: Hero(
+                  tag: 'soccerBall',
+                  child: Image.asset('assets/logos/ClipartKey_56184.png'),
+                ),
+                height: 120.0,
+              ),
+              SizedBox(
+                width: 10.0,
+              ),
+              Flexible(
+                child: Text(
+                  'SOCCER DAY !',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'OpenSans',
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 40.0,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -328,17 +366,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              Opacity(
-                opacity: 0.5,
-                child: Container(
-                  margin: const EdgeInsets.fromLTRB(20, 150, 20, 20),
-                  child: Image.asset(
-                    'assets/logos/ClipartKey_56184.png',
-//                    width: 550,
-//                    height: 550,
-                  ),
-                ),
-              ),
+//              Opacity(
+//                opacity: 0.5,
+//                child: Container(
+//                  margin: const EdgeInsets.fromLTRB(20, 150, 20, 20),
+//                  child: Image.asset(
+//                    'assets/logos/ClipartKey_56184.png',
+////                    width: 550,
+////                    height: 550,
+//                  ),
+//                ),
+//              ),
               Container(
                 height: double.infinity,
                 child: SingleChildScrollView(
@@ -352,6 +390,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
+                        _buildBallImage(),
                         SizedBox(height: 30.0),
                         _buildEmailTF(),
                         SizedBox(
