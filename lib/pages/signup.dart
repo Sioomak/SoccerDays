@@ -16,6 +16,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPass = TextEditingController();
 
+  Widget _buildBackArrow() {
+    return Align(
+      alignment: Alignment.topLeft,
+      child: FlatButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Icon(
+          Icons.arrow_back_ios,
+          size: 40.0,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+
   Widget _buildFirstNameTF() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -328,34 +344,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Widget _buildReturnToLoginBtn() {
-    return Column(
-      children: <Widget>[
-        RaisedButton(
-          elevation: 5.0,
-          padding: EdgeInsets.all(20.0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          color: Colors.white,
-          child: Text(
-            'Back to Login Page',
-            style: TextStyle(
-              color: Color(0xFF3b5249),
-              letterSpacing: 1.5,
-              fontSize: 16.0,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'openSans',
-            ),
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -402,7 +390,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   physics: AlwaysScrollableScrollPhysics(),
                   padding: EdgeInsets.symmetric(
                     horizontal: 40.0,
-                    vertical: 100.0,
+                    vertical: 60.0,
                   ),
                   child: Form(
                     key: _formKey,
@@ -418,6 +406,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 //                          fontWeight: FontWeight.bold,
 //                        ),
 //                      ),
+                        _buildBackArrow(),
+                        SizedBox(height: 20.0),
                         _buildFirstNameTF(),
                         SizedBox(height: 20.0),
                         _buildLastNameTF(),
@@ -430,7 +420,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         _buildConfirmPasswordTF(),
                         SizedBox(height: 30.0),
                         _buildRegisterBtn(),
-                        _buildReturnToLoginBtn(),
                       ],
                     ),
                   ),

@@ -8,12 +8,30 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen>
+    with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   String _email;
   String _password;
   bool _rememberMe = false;
   bool _obscureText = true;
+
+  AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      duration: Duration(milliseconds: 800),
+      vsync: this,
+    );
+
+    controller.forward();
+    controller.addListener(() {
+      setState(() {});
+      print(controller.value);
+    });
+  }
 
   Widget _buildEmailTF() {
     return Column(
@@ -302,7 +320,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildBallImage() {
+  Widget _buildLogo() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 5.0),
       child: Column(
@@ -326,7 +344,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Flexible(
                 child: Text(
-                  'SOCCER DAY !',
+                  'SOCCER DAY',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'OpenSans',
@@ -361,9 +379,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     end: Alignment.bottomCenter,
                     colors: [
                       Color(0xFF519872),
-                      Color(0xFF158467),
-                      Color(0xFF206a5d),
-                      Color(0xFF184d47),
+                      Color(0xFF158467).withOpacity(controller.value),
+                      Color(0xFF206a5d).withOpacity(controller.value),
+                      Color(0xFF184d47).withOpacity(controller.value),
                     ],
                     stops: [0.1, 0.4, 0.7, 0.9],
                   ),
@@ -386,14 +404,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   physics: AlwaysScrollableScrollPhysics(),
                   padding: EdgeInsets.symmetric(
                     horizontal: 40.0,
-                    vertical: 100.0,
+                    vertical: 80.0,
                   ),
                   child: Form(
                     key: _formKey,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        _buildBallImage(),
+                        _buildLogo(),
                         SizedBox(height: 30.0),
                         _buildEmailTF(),
                         SizedBox(
