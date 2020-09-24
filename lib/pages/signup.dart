@@ -369,7 +369,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
               Opacity(
-                opacity: 0.7,
+                opacity: 0.4,
                 child: Container(
                   margin: const EdgeInsets.fromLTRB(20, 150, 20, 20),
                   child: Hero(

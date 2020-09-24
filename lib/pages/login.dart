@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:soccer_days/utilities/constants.dart';
 import 'package:soccer_days/pages/signup.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -17,11 +18,13 @@ class _LoginScreenState extends State<LoginScreen>
   bool _obscureText = true;
 
   AnimationController controller;
+  Animation animation;
+
   @override
   void initState() {
     super.initState();
     controller = AnimationController(
-      duration: Duration(seconds: 1),
+      duration: Duration(seconds: 5),
       vsync: this,
       upperBound: 120.0,
     );
@@ -334,17 +337,20 @@ class _LoginScreenState extends State<LoginScreen>
                   tag: 'soccerBall',
                   child: Image.asset('assets/logos/ClipartKey_56184.png'),
                 ),
-                height: controller.value,
+                height: 120,
               ),
             ),
             SizedBox(
               width: 10.0,
             ),
             Flexible(
-              child: Text(
-                'SOCCER DAY',
-                textAlign: TextAlign.center,
-                style: TextStyle(
+              child: TypewriterAnimatedTextKit(
+                speed: Duration(milliseconds: 200),
+                pause: Duration(milliseconds: 1500),
+                alignment: AlignmentDirectional.topStart,
+                repeatForever: false,
+                text: ['SOCCER DAY ! '],
+                textStyle: TextStyle(
                   fontFamily: 'OpenSans',
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
