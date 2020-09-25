@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:soccer_days/utilities/constants.dart';
+import 'package:intl/intl.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -12,6 +15,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String _name;
   String _phoneNumber;
   String _email;
+  final format = DateFormat("yyyy-MM-dd");
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPass = TextEditingController();
 
@@ -168,6 +172,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ],
     );
+  }
+
+  Widget _buildDateOfBirthTF() {
+    return Column(children: <Widget>[
+//      Text(
+//        '(${format.pattern})',
+//        style: kLabelStyle,
+//      ),
+      DateTimeField(
+        decoration: InputDecoration(
+          hintText: 'Please Select your Date of Birth',
+          hintStyle: kHintTextStyle,
+          contentPadding: EdgeInsets.only(top: 14.0),
+        ),
+        format: format,
+        onShowPicker: (context, currentValue) {
+          return showDatePicker(
+              context: context,
+              firstDate: DateTime(1900),
+              initialDate: currentValue ?? DateTime.now(),
+              lastDate: DateTime(2100));
+        },
+      ),
+    ]);
   }
 
   Widget _buildEmailTF() {
@@ -387,7 +415,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   physics: AlwaysScrollableScrollPhysics(),
                   padding: EdgeInsets.symmetric(
                     horizontal: 40.0,
-                    vertical: 60.0,
+                    vertical: 40.0,
                   ),
                   child: Form(
                     key: _formKey,
@@ -405,11 +433,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
 //                      ),
                         _buildBackArrow(),
                         SizedBox(height: 20.0),
+                        _buildDateOfBirthTF(),
+                        SizedBox(height: 20.0),
                         _buildFirstNameTF(),
                         SizedBox(height: 20.0),
                         _buildLastNameTF(),
                         SizedBox(height: 20.0),
-//                        _buildPhoneNumberTF(),
                         _buildEmailTF(),
                         SizedBox(height: 20.0),
                         _buildPasswordTF(),
