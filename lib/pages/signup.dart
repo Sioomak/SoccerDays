@@ -43,7 +43,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
         SizedBox(height: 10.0),
         Opacity(
-          opacity: 0.9,
+          opacity: 0.8,
           child: Container(
             alignment: Alignment.centerLeft,
             decoration: kBoxDecorationStyle,
@@ -90,7 +90,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
         SizedBox(height: 10.0),
         Opacity(
-          opacity: 0.9,
+          opacity: 0.8,
           child: Container(
             alignment: Alignment.centerLeft,
             decoration: kBoxDecorationStyle,
@@ -176,24 +176,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Widget _buildDateOfBirthTF() {
     return Column(children: <Widget>[
-//      Text(
-//        '(${format.pattern})',
-//        style: kLabelStyle,
-//      ),
-      DateTimeField(
-        decoration: InputDecoration(
-          hintText: 'Please Select your Date of Birth',
-          hintStyle: kHintTextStyle,
-          contentPadding: EdgeInsets.only(top: 14.0),
+      Text(
+        '',
+        textAlign: TextAlign.left,
+        style: kLabelStyle,
+      ),
+      Opacity(
+        opacity: 0.8,
+        child: DateTimeField(
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Color(0xFF3e978b),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
+              borderSide: BorderSide.none,
+            ),
+            hintText: ' Select Your Date of Birth',
+            hintStyle: kHintTextStyle,
+            contentPadding: EdgeInsets.only(top: 14.0),
+            prefixIcon: Icon(
+              Icons.calendar_today,
+              color: Colors.white,
+            ),
+          ),
+          format: format,
+          onShowPicker: (context, currentValue) {
+            return showDatePicker(
+                context: context,
+                firstDate: DateTime(1900),
+                initialDate: currentValue ?? DateTime.now(),
+                lastDate: DateTime(2100));
+          },
         ),
-        format: format,
-        onShowPicker: (context, currentValue) {
-          return showDatePicker(
-              context: context,
-              firstDate: DateTime(1900),
-              initialDate: currentValue ?? DateTime.now(),
-              lastDate: DateTime(2100));
-        },
       ),
     ]);
   }
@@ -396,9 +412,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
               Opacity(
-                opacity: 0.4,
+                opacity: 0.3,
                 child: Container(
-                  margin: const EdgeInsets.fromLTRB(20, 150, 20, 20),
+                  margin: const EdgeInsets.fromLTRB(20, 200, 20, 20),
                   child: Hero(
                     tag: 'soccerBall',
                     child: Image.asset(
@@ -433,11 +449,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
 //                      ),
                         _buildBackArrow(),
                         SizedBox(height: 20.0),
-                        _buildDateOfBirthTF(),
-                        SizedBox(height: 20.0),
                         _buildFirstNameTF(),
                         SizedBox(height: 20.0),
                         _buildLastNameTF(),
+                        SizedBox(height: 20.0),
+                        _buildDateOfBirthTF(),
                         SizedBox(height: 20.0),
                         _buildEmailTF(),
                         SizedBox(height: 20.0),
