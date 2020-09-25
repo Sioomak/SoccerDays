@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:soccer_days/utilities/constants.dart';
 import 'package:soccer_days/pages/signup.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -36,6 +37,55 @@ class _LoginScreenState extends State<LoginScreen>
 //      setState(() {});
 //      print(controller.value);
 //    });
+  }
+
+  Widget _buildLogo() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Opacity(
+              opacity: 0.9,
+              child: Container(
+                child: Hero(
+                  tag: 'soccerBall',
+                  child: Image.asset('assets/logos/ClipartKey_56184.png'),
+                ),
+                height: 100,
+              ),
+            ),
+            SizedBox(
+              width: 10.0,
+            ),
+            Flexible(
+              child: Text(
+                'SOCCER DAY',
+                textAlign: TextAlign.center,
+//                The above Text widget can be changed with typewriter animation widget
+//                speed: Duration(milliseconds: 200),
+//                pause: Duration(milliseconds: 1500),
+//                alignment: AlignmentDirectional.topStart,
+//                isRepeatingAnimation: false,
+                style: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: 44.0,
+                  shadows: <Shadow>[
+                    Shadow(
+                        offset: Offset(2.0, 2.0),
+                        blurRadius: 3.0,
+                        color: Colors.white),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 
   Widget _buildEmailTF() {
@@ -200,7 +250,10 @@ class _LoginScreenState extends State<LoginScreen>
         opacity: 0.7,
         child: isLoading
             ? Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  strokeWidth: 8.0,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
               )
             : RaisedButton(
                 elevation: 5.0,
@@ -209,7 +262,8 @@ class _LoginScreenState extends State<LoginScreen>
                     isLoading = true;
                     logingIn = false;
                   });
-                  print(isLoading);
+                  print("is loading? $isLoading");
+                  print("user pass enabled? $logingIn ");
 
                   if (!_formKey.currentState.validate()) {
                     return;
@@ -255,47 +309,45 @@ class _LoginScreenState extends State<LoginScreen>
     );
   }
 
-  Widget _buildSocialBtn(Function onTap, AssetImage logo) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 60.0,
-        width: 60.0,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              offset: Offset(0, 2),
-              blurRadius: 6.0,
-            ),
-          ],
-          image: DecorationImage(
-            image: logo,
-          ),
-        ),
-      ),
-    );
-  }
+//  Widget _buildSocialBtn(Function onTap, AssetImage logo) {
+//    return GestureDetector(
+//      onTap: onTap,
+//      child: Container(
+//        height: 60.0,
+//        width: 60.0,
+//        decoration: BoxDecoration(
+//          shape: BoxShape.circle,
+//          color: Colors.white,
+//          boxShadow: [
+//            BoxShadow(
+//              color: Colors.black26,
+//              offset: Offset(0, 2),
+//              blurRadius: 6.0,
+//            ),
+//          ],
+//          image: DecorationImage(
+//            image: logo,
+//          ),
+//        ),
+//      ),
+//    );
+//  }
 
   Widget _buildSocialBtnRow() {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 15.0),
-      child: Row(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          _buildSocialBtn(
-            () => print('Login with Facebook'),
-            AssetImage(
-              'assets/logos/facebook.jpg',
-            ),
+          GoogleSignInButton(
+            onPressed: () {/* ... */},
+            borderRadius: 8,
+            darkMode: true, // default: false
           ),
-          _buildSocialBtn(
-            () => print('Login with Google'),
-            AssetImage(
-              'assets/logos/google.jpg',
-            ),
+          SizedBox(height: 10),
+          FacebookSignInButton(
+            onPressed: () {},
+            borderRadius: 8,
           ),
         ],
       ),
@@ -337,53 +389,6 @@ class _LoginScreenState extends State<LoginScreen>
     );
   }
 
-  Widget _buildLogo() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            Opacity(
-              opacity: 0.9,
-              child: Container(
-                child: Hero(
-                  tag: 'soccerBall',
-                  child: Image.asset('assets/logos/ClipartKey_56184.png'),
-                ),
-                height: 120,
-              ),
-            ),
-            SizedBox(
-              width: 10.0,
-            ),
-            Flexible(
-              child: TypewriterAnimatedTextKit(
-                speed: Duration(milliseconds: 200),
-                pause: Duration(milliseconds: 1500),
-                alignment: AlignmentDirectional.topStart,
-                isRepeatingAnimation: false,
-                text: ['SOCCER DAY ! '],
-                textStyle: TextStyle(
-                  fontFamily: 'OpenSans',
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontSize: 42.0,
-                  shadows: <Shadow>[
-                    Shadow(
-                        offset: Offset(2.0, 2.0),
-                        blurRadius: 3.0,
-                        color: Colors.white),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
 //    progressDialog = ProgressDialog(context, ProgressDialogType.Normal);
@@ -412,24 +417,13 @@ class _LoginScreenState extends State<LoginScreen>
                   ),
                 ),
               ),
-//              Opacity(
-//                opacity: 0.5,
-//                child: Container(
-//                  margin: const EdgeInsets.fromLTRB(20, 150, 20, 20),
-//                  child: Image.asset(
-//                    'assets/logos/ClipartKey_56184.png',
-////                    width: 550,
-////                    height: 550,
-//                  ),
-//                ),
-//              ),
               Container(
                 height: double.infinity,
                 child: SingleChildScrollView(
                   physics: AlwaysScrollableScrollPhysics(),
                   padding: EdgeInsets.symmetric(
                     horizontal: 40.0,
-                    vertical: 80.0,
+                    vertical: 60.0,
                   ),
                   child: Form(
                     key: _formKey,
@@ -437,10 +431,10 @@ class _LoginScreenState extends State<LoginScreen>
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         _buildLogo(),
-                        SizedBox(height: 30.0),
+                        SizedBox(height: 20.0),
                         _buildEmailTF(),
                         SizedBox(
-                          height: 30.0,
+                          height: 20.0,
                         ),
                         _buildPasswordTF(),
                         _buildForgotPasswordBtn(),
@@ -448,6 +442,7 @@ class _LoginScreenState extends State<LoginScreen>
                         _buildLoginBtn(),
                         _buildSignInWithText(),
                         _buildSocialBtnRow(),
+                        SizedBox(height: 10.0),
                         _buildSignupBtn(),
                       ],
                     ),
