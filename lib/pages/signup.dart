@@ -206,6 +206,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       Opacity(
         opacity: 0.8,
         child: DateTimeField(
+          style: TextStyle(color: Colors.white),
           textAlign: TextAlign.center,
           decoration: InputDecoration(
             filled: true,
@@ -294,11 +295,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
             height: 50.0,
             child: TextFormField(
               textAlign: TextAlign.center,
-              validator: (value) {
+              validator: (String value) {
                 if (value.isEmpty) {
-                  return "Please enter your email";
-                } else
-                  return null;
+                  return 'Please enter your email';
+                }
+                if (!RegExp(
+                        r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                    .hasMatch(value)) {
+                  return 'Please enter a valid email Address';
+                }
+                return null;
               },
               onSaved: (String value) {
                 _email = value;
