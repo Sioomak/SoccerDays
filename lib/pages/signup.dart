@@ -39,9 +39,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Select your preferred position',
+          'Preferred position',
           style: kLabelStyle,
         ),
+        SizedBox(height: 10),
         Container(
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
