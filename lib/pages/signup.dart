@@ -15,6 +15,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String _name;
   String _phoneNumber;
   String _email;
+  String selectedPosition = 'M';
   final format = DateFormat("yyyy-MM-dd");
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPass = TextEditingController();
@@ -30,6 +31,52 @@ class _SignUpScreenState extends State<SignUpScreen> {
         size: 36.0,
         color: Colors.white,
       ),
+    );
+  }
+
+  Widget _buildPositionSelect() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Select your preferred position',
+          style: kLabelStyle,
+        ),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 50.0,
+          child: DropdownButton<String>(
+              icon: Icon(
+                Icons.touch_app,
+                color: Colors.white,
+              ),
+              items: [
+                DropdownMenuItem(
+                  child: Text('Goal Keeper'),
+                  value: 'Goal Keeper',
+                ),
+                DropdownMenuItem(
+                  child: Text('Defender'),
+                  value: 'Defender',
+                ),
+                DropdownMenuItem(
+                  child: Text('Midfielder'),
+                  value: 'Midfielder',
+                ),
+                DropdownMenuItem(
+                  child: Text('Forward'),
+                  value: 'Forward',
+                ),
+              ],
+              onChanged: (value) {
+                setState(() {
+                  selectedPosition = value;
+                });
+                print(selectedPosition);
+              }),
+        ),
+      ],
     );
   }
 
@@ -49,6 +96,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             decoration: kBoxDecorationStyle,
             height: 50.0,
             child: TextFormField(
+              textAlign: TextAlign.center,
               validator: (value) {
                 if (value.isEmpty) {
                   return "Please enter your first name";
@@ -96,6 +144,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             decoration: kBoxDecorationStyle,
             height: 50.0,
             child: TextFormField(
+              textAlign: TextAlign.center,
               validator: (value) {
                 if (value.isEmpty) {
                   return "Please enter your last name";
@@ -143,6 +192,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             decoration: kBoxDecorationStyle,
             height: 50.0,
             child: TextFormField(
+              textAlign: TextAlign.center,
               validator: (value) {
                 if (value.isEmpty) {
                   return "Please enter your phone number";
@@ -184,9 +234,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
       Opacity(
         opacity: 0.8,
         child: DateTimeField(
+          textAlign: TextAlign.center,
           decoration: InputDecoration(
             filled: true,
-            fillColor: Color(0xFF3e978b),
+            fillColor: Color(0xFF206a5d),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(10),
@@ -230,6 +281,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             decoration: kBoxDecorationStyle,
             height: 50.0,
             child: TextFormField(
+              textAlign: TextAlign.center,
               validator: (value) {
                 if (value.isEmpty) {
                   return "Please enter your email";
@@ -277,6 +329,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             decoration: kBoxDecorationStyle,
             height: 50.0,
             child: TextFormField(
+              textAlign: TextAlign.center,
               controller: _password,
               validator: (value) {
                 if (value.isEmpty) {
@@ -322,6 +375,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             decoration: kBoxDecorationStyle,
             height: 50.0,
             child: TextFormField(
+              textAlign: TextAlign.center,
               controller: _confirmPass,
               validator: (value) {
                 if (value.isEmpty) {
@@ -402,7 +456,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Color(0xFF519872),
+                      Color(0xFF91d18b),
                       Color(0xFF158467),
                       Color(0xFF206a5d),
                       Color(0xFF184d47),
@@ -412,7 +466,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
               Opacity(
-                opacity: 0.3,
+                opacity: 0.4,
                 child: Container(
                   margin: const EdgeInsets.fromLTRB(20, 200, 20, 20),
                   child: Hero(
@@ -455,12 +509,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         SizedBox(height: 20.0),
                         _buildDateOfBirthTF(),
                         SizedBox(height: 20.0),
+                        _buildPositionSelect(),
+                        SizedBox(height: 20.0),
                         _buildEmailTF(),
                         SizedBox(height: 20.0),
                         _buildPasswordTF(),
                         SizedBox(height: 20.0),
                         _buildConfirmPasswordTF(),
-                        SizedBox(height: 30.0),
+                        SizedBox(height: 20.0),
                         _buildRegisterBtn(),
                       ],
                     ),

@@ -71,13 +71,13 @@ class _LoginScreenState extends State<LoginScreen>
                 style: TextStyle(
                   fontFamily: 'OpenSans',
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontSize: 44.0,
+                  color: Color(0xFF206a5d),
+                  fontSize: 46.0,
                   shadows: <Shadow>[
                     Shadow(
-                        offset: Offset(2.0, 2.0),
-                        blurRadius: 3.0,
-                        color: Colors.white),
+                        offset: Offset(3.0, 3.0),
+                        blurRadius: 5.0,
+                        color: Colors.white60),
                   ],
                 ),
               ),
@@ -334,22 +334,25 @@ class _LoginScreenState extends State<LoginScreen>
 //  }
 
   Widget _buildSocialBtnRow() {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 15.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          GoogleSignInButton(
-            onPressed: () {/* ... */},
-            borderRadius: 8,
-            darkMode: true, // default: false
-          ),
-          SizedBox(height: 10),
-          FacebookSignInButton(
-            onPressed: () {},
-            borderRadius: 8,
-          ),
-        ],
+    return Opacity(
+      opacity: 0.8,
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 15.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            GoogleSignInButton(
+              onPressed: () {/* ... */},
+              borderRadius: 8,
+              darkMode: true, // default: false
+            ),
+            SizedBox(height: 10),
+            FacebookSignInButton(
+              onPressed: () {},
+              borderRadius: 8,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -408,7 +411,7 @@ class _LoginScreenState extends State<LoginScreen>
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Color(0xFF519872),
+                      Color(0xFF91d18b),
                       Color(0xFF158467),
                       Color(0xFF206a5d),
                       Color(0xFF184d47),
