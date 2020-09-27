@@ -15,7 +15,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String _name;
   String _phoneNumber;
   String _email;
-  String selectedPosition = 'M';
+  String selectedPosition = 'Defender';
+
+  List<DropdownMenuItem> getDropdownItems() {
+    List<DropdownMenuItem<String>> dropdownItems = [];
+
+    for (int i = 0; i < playersPositionsList.length; i++) {
+      String position = playersPositionsList[i];
+
+      var newItem = DropdownMenuItem(
+        child: Text(
+          position,
+        ),
+        value: position,
+      );
+      dropdownItems.add(newItem);
+    }
+    return dropdownItems;
+  }
+
   final format = DateFormat("yyyy-MM-dd");
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPass = TextEditingController();
@@ -31,53 +49,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         size: 36.0,
         color: Colors.white,
       ),
-    );
-  }
-
-  Widget _buildPositionSelect() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'Preferred position',
-          style: kLabelStyle,
-        ),
-        SizedBox(height: 10),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 50.0,
-          child: DropdownButton<String>(
-              icon: Icon(
-                Icons.touch_app,
-                color: Colors.white,
-              ),
-              items: [
-                DropdownMenuItem(
-                  child: Text('Goal Keeper'),
-                  value: 'Goal Keeper',
-                ),
-                DropdownMenuItem(
-                  child: Text('Defender'),
-                  value: 'Defender',
-                ),
-                DropdownMenuItem(
-                  child: Text('Midfielder'),
-                  value: 'Midfielder',
-                ),
-                DropdownMenuItem(
-                  child: Text('Forward'),
-                  value: 'Forward',
-                ),
-              ],
-              onChanged: (value) {
-                setState(() {
-                  selectedPosition = value;
-                });
-                print(selectedPosition);
-              }),
-        ),
-      ],
     );
   }
 
@@ -264,6 +235,46 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     ]);
+  }
+
+  Widget _buildPositionSelect() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Preferred Positions',
+          style: kLabelStyle,
+        ),
+        SizedBox(height: 10),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 50.0,
+          child: DropdownButton<String>(
+              dropdownColor: Color(0xFF065446),
+
+              //This dropdown menu should eventually be changed to a multiSelect menu
+
+              value: selectedPosition,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'OpenSans',
+              ),
+              icon: Icon(
+                Icons.touch_app,
+                color: Colors.white,
+              ),
+              items: getDropdownItems(),
+              onChanged: (value) {
+                setState(() {
+                  selectedPosition = value;
+                });
+                print(selectedPosition);
+              }),
+        ),
+      ],
+    );
   }
 
   Widget _buildEmailTF() {
@@ -458,9 +469,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     end: Alignment.bottomCenter,
                     colors: [
                       Color(0xFF91d18b),
-                      Color(0xFF158467),
+                      Color(0xFF519872),
                       Color(0xFF206a5d),
-                      Color(0xFF184d47),
+                      Color(0xFF004a2f),
                     ],
                     stops: [0.1, 0.4, 0.7, 0.9],
                   ),

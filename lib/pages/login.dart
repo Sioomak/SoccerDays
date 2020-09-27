@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen>
         Row(
           children: <Widget>[
             Opacity(
-              opacity: 0.9,
+              opacity: 0.8,
               child: Container(
                 child: Hero(
                   tag: 'soccerBall',
@@ -412,9 +412,9 @@ class _LoginScreenState extends State<LoginScreen>
                     end: Alignment.bottomCenter,
                     colors: [
                       Color(0xFF91d18b),
-                      Color(0xFF158467),
+                      Color(0xFF519872),
                       Color(0xFF206a5d),
-                      Color(0xFF184d47),
+                      Color(0xFF004a2f),
                     ],
                     stops: [0.1, 0.4, 0.7, 0.9],
                   ),

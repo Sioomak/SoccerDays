@@ -23,4 +23,9 @@ final kBoxDecorationStyle = BoxDecoration(
   ],
 );
 
-const List<String> playersPositionsList = ['Goalie', 'def', 'mid', 'forward'];
+const List<String> playersPositionsList = [
+  'Goalie',
+  'Defender',
+  'Midfielder',
+  'Forward'
+];
