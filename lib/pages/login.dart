@@ -71,13 +71,14 @@ class _LoginScreenState extends State<LoginScreen>
                 style: TextStyle(
                   fontFamily: 'OpenSans',
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF206a5d),
-                  fontSize: 46.0,
+                  color: Colors.white,
+                  fontSize: 48.0,
                   shadows: <Shadow>[
                     Shadow(
-                        offset: Offset(3.0, 3.0),
-                        blurRadius: 5.0,
-                        color: Colors.white60),
+                      offset: Offset(3.0, 3.0),
+                      blurRadius: 5.0,
+                      color: Color(0xFF206a5d),
+                    ),
                   ],
                 ),
               ),

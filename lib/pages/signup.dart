@@ -149,6 +149,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Widget _buildPhoneNumberTF() {
+    // This widget is not currently being used in UI
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -253,6 +254,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           height: 50.0,
           child: DropdownButton<String>(
               dropdownColor: Color(0xFF065446),
+              autofocus: true,
 
               //This dropdown menu should eventually be changed to a multiSelect menu
 
