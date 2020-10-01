@@ -24,51 +24,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPass = TextEditingController();
 
-//  Widget _buildTestDateOfBirthTF() {
-////
-//
-//    _selectDate(BuildContext context) async {
-//      final DateTime picked = await showDatePicker(
-//        context: context,
-//        initialDate: _selectedDate, // Refer step 1
-//        firstDate: DateTime(2000),
-//        lastDate: DateTime(2025),
-//      );
-//      if (picked != null && picked != _selectedDate)
-//        setState(() {
-//          _selectedDate = picked;
-//        });
-//    }
-//
-//    //
-//    return Column(
-//      crossAxisAlignment: CrossAxisAlignment.start,
-//      children: <Widget>[
-//        Text(
-//          'Select Your Date of Birth',
-//          style: kLabelStyle,
-//        ),
-//        SizedBox(height: 10.0),
-//
-////        Text(
-////          "${selectedDate.toLocal()}".split(' ')[0],
-////          style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
-////        ),
-//
-//        Container(
-//          alignment: Alignment.centerLeft,
-//          decoration: kBoxDecorationStyle,
-//          height: 50.0,
-//          child: FlatButton(
-//            padding: EdgeInsets.all(50.0),
-//            color: Colors.red,
-//            onPressed: () => _selectDate(context), // Refer step 3
-//          ),
-//        ),
-//      ],
-//    );
-//  }
-
   Widget _buildBackArrow() {
     return FlatButton(
       padding: EdgeInsets.only(right: 700),
