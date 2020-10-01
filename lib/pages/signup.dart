@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:soccer_days/utilities/constants.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -12,31 +13,61 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
-  String _name;
-  String _phoneNumber;
+//  final _auth = FirebaseAuth.instance;
+  String _fName;
+  String _lName;
+//  String _phoneNumber;
   String _email;
-  String selectedPosition = 'Defender';
+  String _selectedPosition = 'Defender';
+  DateTime _selectedDate = DateTime.now();
 
-  List<DropdownMenuItem> getDropdownItems() {
-    List<DropdownMenuItem<String>> dropdownItems = [];
-
-    for (int i = 0; i < playersPositionsList.length; i++) {
-      String position = playersPositionsList[i];
-
-      var newItem = DropdownMenuItem(
-        child: Text(
-          position,
-        ),
-        value: position,
-      );
-      dropdownItems.add(newItem);
-    }
-    return dropdownItems;
-  }
-
-  final format = DateFormat("yyyy-MM-dd");
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPass = TextEditingController();
+
+//  Widget _buildTestDateOfBirthTF() {
+////
+//
+//    _selectDate(BuildContext context) async {
+//      final DateTime picked = await showDatePicker(
+//        context: context,
+//        initialDate: _selectedDate, // Refer step 1
+//        firstDate: DateTime(2000),
+//        lastDate: DateTime(2025),
+//      );
+//      if (picked != null && picked != _selectedDate)
+//        setState(() {
+//          _selectedDate = picked;
+//        });
+//    }
+//
+//    //
+//    return Column(
+//      crossAxisAlignment: CrossAxisAlignment.start,
+//      children: <Widget>[
+//        Text(
+//          'Select Your Date of Birth',
+//          style: kLabelStyle,
+//        ),
+//        SizedBox(height: 10.0),
+//
+////        Text(
+////          "${selectedDate.toLocal()}".split(' ')[0],
+////          style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+////        ),
+//
+//        Container(
+//          alignment: Alignment.centerLeft,
+//          decoration: kBoxDecorationStyle,
+//          height: 50.0,
+//          child: FlatButton(
+//            padding: EdgeInsets.all(50.0),
+//            color: Colors.red,
+//            onPressed: () => _selectDate(context), // Refer step 3
+//          ),
+//        ),
+//      ],
+//    );
+//  }
 
   Widget _buildBackArrow() {
     return FlatButton(
@@ -76,7 +107,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   return null;
               },
               onSaved: (String value) {
-                _name = value;
+                _fName = value;
               },
               keyboardType: TextInputType.text,
               style: TextStyle(
@@ -124,7 +155,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   return null;
               },
               onSaved: (String value) {
-                _name = value;
+                _lName = value;
               },
               keyboardType: TextInputType.text,
               style: TextStyle(
@@ -148,98 +179,125 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Widget _buildPhoneNumberTF() {
-    // This widget is not currently being used in UI
+//  Widget _buildPhoneNumberTF() {
+//    // This widget is not currently being used in UI
+//    return Column(
+//      crossAxisAlignment: CrossAxisAlignment.start,
+//      children: <Widget>[
+//        Text(
+//          'Phone Number',
+//          style: kLabelStyle,
+//        ),
+//        SizedBox(height: 10.0),
+//        Opacity(
+//          opacity: 0.8,
+//          child: Container(
+//            alignment: Alignment.centerLeft,
+//            decoration: kBoxDecorationStyle,
+//            height: 50.0,
+//            child: TextFormField(
+//              textAlign: TextAlign.center,
+//              validator: (value) {
+//                if (value.isEmpty) {
+//                  return "Please enter your phone number";
+//                } else
+//                  return null;
+//              },
+//              onSaved: (String value) {
+//                _phoneNumber = value;
+//              },
+//              keyboardType: TextInputType.number,
+//              style: TextStyle(
+//                color: Colors.white,
+//                fontFamily: 'OpenSans',
+//              ),
+//              decoration: InputDecoration(
+//                border: InputBorder.none,
+//                contentPadding: EdgeInsets.only(top: 14.0),
+//                prefixIcon: Icon(
+//                  Icons.phone,
+//                  color: Colors.white,
+//                ),
+//                hintText: 'Enter your phone number',
+//                hintStyle: kHintTextStyle,
+//              ),
+//            ),
+//          ),
+//        ),
+//      ],
+//    );
+//  }
+
+  Widget _buildDateOfBirthTF() {
+    final format = DateFormat("yyyy-MM-dd");
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Phone Number',
+          'Date of Birth',
           style: kLabelStyle,
         ),
-        SizedBox(height: 10.0),
+        SizedBox(
+          height: 10.0,
+        ),
         Opacity(
           opacity: 0.8,
-          child: Container(
-            alignment: Alignment.centerLeft,
-            decoration: kBoxDecorationStyle,
-            height: 50.0,
-            child: TextFormField(
-              textAlign: TextAlign.center,
-              validator: (value) {
-                if (value.isEmpty) {
-                  return "Please enter your phone number";
-                } else
-                  return null;
-              },
-              onSaved: (String value) {
-                _phoneNumber = value;
-              },
-              keyboardType: TextInputType.number,
-              style: TextStyle(
-                color: Colors.white,
-                fontFamily: 'OpenSans',
-              ),
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.only(top: 14.0),
-                prefixIcon: Icon(
-                  Icons.phone,
-                  color: Colors.white,
+          child: DateTimeField(
+            format: format,
+            style: TextStyle(color: Colors.white),
+            textAlign: TextAlign.center,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Color(0xFF206a5d),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
                 ),
-                hintText: 'Enter your phone number',
-                hintStyle: kHintTextStyle,
+                borderSide: BorderSide.none,
+              ),
+              hintText: ' Select Your Date of Birth',
+              hintStyle: kHintTextStyle,
+              contentPadding: EdgeInsets.only(top: 14.0),
+              prefixIcon: Icon(
+                Icons.calendar_today,
+                color: Colors.white,
               ),
             ),
+            onShowPicker: (context, currentValue) {
+              return showDatePicker(
+                context: context,
+                firstDate: DateTime(1900),
+                initialDate: currentValue ?? DateTime.now(),
+                lastDate: DateTime(2100),
+              ).then((currentValue) => _selectedDate = currentValue);
+            },
           ),
         ),
       ],
     );
   }
 
-  Widget _buildDateOfBirthTF() {
-    return Column(children: <Widget>[
-      Text(
-        '',
-        textAlign: TextAlign.left,
-        style: kLabelStyle,
-      ),
-      Opacity(
-        opacity: 0.8,
-        child: DateTimeField(
-          style: TextStyle(color: Colors.white),
-          textAlign: TextAlign.center,
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: Color(0xFF206a5d),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(10),
-              ),
-              borderSide: BorderSide.none,
-            ),
-            hintText: ' Select Your Date of Birth',
-            hintStyle: kHintTextStyle,
-            contentPadding: EdgeInsets.only(top: 14.0),
-            prefixIcon: Icon(
-              Icons.calendar_today,
-              color: Colors.white,
-            ),
-          ),
-          format: format,
-          onShowPicker: (context, currentValue) {
-            return showDatePicker(
-                context: context,
-                firstDate: DateTime(1900),
-                initialDate: currentValue ?? DateTime.now(),
-                lastDate: DateTime(2100));
-          },
-        ),
-      ),
-    ]);
-  }
-
   Widget _buildPositionSelect() {
+    //start dropDown menu method
+    List<DropdownMenuItem> getDropdownItems() {
+      List<DropdownMenuItem<String>> dropdownItems = [];
+
+      for (int i = 0; i < playersPositionsList.length; i++) {
+        String position = playersPositionsList[i];
+
+        var newItem = DropdownMenuItem(
+          child: Text(
+            position,
+          ),
+          value: position,
+        );
+        dropdownItems.add(newItem);
+      }
+      return dropdownItems;
+    }
+    // end of dropDown menu method
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -258,7 +316,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
               //This dropdown menu should eventually be changed to a multiSelect menu
 
-              value: selectedPosition,
+              value: _selectedPosition,
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -271,9 +329,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               items: getDropdownItems(),
               onChanged: (value) {
                 setState(() {
-                  selectedPosition = value;
+                  _selectedPosition = value;
                 });
-                print(selectedPosition);
+                print(_selectedPosition);
               }),
         ),
       ],
@@ -354,8 +412,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               validator: (value) {
                 if (value.isEmpty) {
                   return "Please confirm your password";
-                } else
-                  return null;
+                }
+                return null;
               },
               obscureText: true,
               style: TextStyle(
@@ -435,10 +493,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
         elevation: 5.0,
         onPressed: () {
           if (_formKey.currentState.validate()) {
-            print('new Sing up data submitted');
-            return;
+//            final newUser = await _auth.createUserWithEmailAndPassword(
+//                email: _email, password: _confirmPass.text);
+            return null;
           }
           _formKey.currentState.save();
+
+          print('new Sing up data submitted');
+          print(_fName);
+          print(_lName);
+          print(_selectedPosition);
+          print(_email);
+          print(_password.text);
+          print(_confirmPass.text);
+          print(_selectedDate.toString());
         },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
