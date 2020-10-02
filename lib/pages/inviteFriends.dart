@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:soccer_days/pages/login.dart';
 import 'package:soccer_days/utilities/constants.dart';
 import 'package:soccer_days/pages/signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class InviteFriends extends StatefulWidget {
   static const String id = 'invite_screen';
@@ -12,8 +13,26 @@ class InviteFriends extends StatefulWidget {
 }
 
 class _InviteFriends extends State<InviteFriends> {
-  final _formKey = GlobalKey<FormState>();
-  String _fName;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  User loggedInUser;
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUser();
+  }
+
+  void getCurrentUser() {
+    try {
+      final User user = _auth.currentUser;
+      if (user != null) {
+        loggedInUser = user;
+        print(loggedInUser.email);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   Widget _buildBackArrow() {
     return FlatButton(
@@ -34,7 +53,7 @@ class _InviteFriends extends State<InviteFriends> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Success!',
+          "Your new account is successfully registered with email address: ${loggedInUser.email} ",
           style: TextStyle(fontSize: 50.0),
         ),
         SizedBox(height: 10.0),
@@ -116,11 +135,9 @@ class _InviteFriends extends State<InviteFriends> {
                     horizontal: 40.0,
                     vertical: 40.0,
                   ),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
 //                      Text(
 //                        'Sign In',
 //                        style: TextStyle(
@@ -130,11 +147,10 @@ class _InviteFriends extends State<InviteFriends> {
 //                          fontWeight: FontWeight.bold,
 //                        ),
 //                      ),
-                        _buildBackArrow(),
-                        SizedBox(height: 20.0),
-                        _buildFirstNameTF(),
-                      ],
-                    ),
+                      _buildBackArrow(),
+                      SizedBox(height: 20.0),
+                      _buildFirstNameTF(),
+                    ],
                   ),
                 ),
               )

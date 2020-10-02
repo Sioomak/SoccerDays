@@ -35,7 +35,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       },
       child: Icon(
         Icons.arrow_back_ios,
-        size: 36.0,
+        size: 28.0,
         color: Colors.white,
       ),
     );
@@ -462,7 +462,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             final newUser = await _auth.createUserWithEmailAndPassword(
                 email: _email, password: _confirmPass.text);
             if (newUser != null) {
-              print('Hoorey!');
+              print('Hoorey from Firebase!');
             }
           } catch (e) {
             print(e);
@@ -554,7 +554,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 //                        ),
 //                      ),
                         _buildBackArrow(),
-                        SizedBox(height: 10.0),
                         _buildFirstNameTF(),
                         SizedBox(height: 10.0),
                         _buildLastNameTF(),
@@ -568,7 +567,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         _buildPasswordTF(),
                         SizedBox(height: 10.0),
                         _buildConfirmPasswordTF(),
-                        SizedBox(height: 10.0),
+                        SizedBox(height: 5.0),
                         _buildRegisterBtn(),
                       ],
                     ),
