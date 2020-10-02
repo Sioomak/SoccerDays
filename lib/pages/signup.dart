@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:soccer_days/pages/inviteFriends.dart';
-import 'package:soccer_days/pages/inviteFriends.dart';
 import 'package:soccer_days/pages/login.dart';
 import 'package:soccer_days/utilities/constants.dart';
 import 'package:intl/intl.dart';
@@ -450,11 +449,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
+        padding: EdgeInsets.all(15.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        color: Colors.white,
         onPressed: () async {
           if (_formKey.currentState.validate()) {
-            return;
+            _formKey.currentState.save();
           }
-          _formKey.currentState.save();
           try {
             final newUser = await _auth.createUserWithEmailAndPassword(
                 email: _email, password: _confirmPass.text);
@@ -464,7 +467,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
           } catch (e) {
             print(e);
           }
-          Navigator.pushNamed(context, InviteFriends.id);
           print('new Sing up data submitted');
           print(_fName);
           print(_lName);
@@ -473,12 +475,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           print(_password.text);
           print(_confirmPass.text);
           print(_selectedDate.toString());
+          Navigator.pushNamed(context, InviteFriends.id);
         },
-        padding: EdgeInsets.all(15.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-        color: Colors.white,
         child: Text(
           'Register',
           style: TextStyle(

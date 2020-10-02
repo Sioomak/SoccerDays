@@ -18,8 +18,8 @@ class _LoginScreenState extends State<LoginScreen>
   String _password;
   bool _rememberMe = false;
   bool _obscureText = true;
-  bool isLoading = false;
-  bool logingIn = true;
+//  bool isLoading = false;
+//  bool logingIn = true;
 
   AnimationController controller;
   Animation animation;
@@ -106,7 +106,6 @@ class _LoginScreenState extends State<LoginScreen>
             decoration: kBoxDecorationStyle,
             height: 70.0,
             child: TextFormField(
-              enabled: logingIn,
               validator: (String value) {
                 if (value.isEmpty) {
                   return 'Please enter your email';
@@ -159,7 +158,6 @@ class _LoginScreenState extends State<LoginScreen>
             decoration: kBoxDecorationStyle,
             height: 70.0,
             child: TextFormField(
-              enabled: logingIn,
               validator: (String value) {
                 if (value.isEmpty) {
                   return "Please enter your password";
@@ -246,50 +244,34 @@ class _LoginScreenState extends State<LoginScreen>
 
   Widget _buildLoginBtn() {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 25.0),
-      width: double.infinity,
-      child: Opacity(
-        opacity: 0.7,
-        child: isLoading
-            ? Center(
-                child: CircularProgressIndicator(
-                  strokeWidth: 8.0,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                ),
-              )
-            : RaisedButton(
-                elevation: 5.0,
-                onPressed: () {
-                  setState(() {
-                    isLoading = true;
-                    logingIn = false;
-                  });
-                  print("is loading? $isLoading");
-                  print("user pass enabled? $logingIn ");
-
-                  if (!_formKey.currentState.validate()) {
-                    return;
-                  }
-                  _formKey.currentState.save();
-                },
-                padding: EdgeInsets.all(15.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                color: Colors.white,
-                child: Text(
-                  'LOG IN',
-                  style: TextStyle(
-                    color: Color(0xFF3b5249),
-                    letterSpacing: 1.5,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'OpenSans',
-                  ),
-                ),
-              ),
-      ),
-    );
+        padding: EdgeInsets.symmetric(vertical: 25.0),
+        width: double.infinity,
+        child: RaisedButton(
+          elevation: 5.0,
+          padding: EdgeInsets.all(15.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          onPressed: () {
+            if (!_formKey.currentState.validate()) {
+              return;
+            }
+            _formKey.currentState.save();
+            print(_email);
+            print(_password);
+          },
+          color: Colors.white,
+          child: Text(
+            'LOG IN',
+            style: TextStyle(
+              color: Color(0xFF3b5249),
+              letterSpacing: 1.5,
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'OpenSans',
+            ),
+          ),
+        ));
   }
 
   Widget _buildSignInWithText() {
@@ -310,6 +292,8 @@ class _LoginScreenState extends State<LoginScreen>
       ],
     );
   }
+
+//This Widget is not used anymore for now
 
 //  Widget _buildSocialBtn(Function onTap, AssetImage logo) {
 //    return GestureDetector(
