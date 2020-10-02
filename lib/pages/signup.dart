@@ -1,19 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:soccer_days/pages/inviteFriends.dart';
+import 'package:soccer_days/pages/inviteFriends.dart';
+import 'package:soccer_days/pages/login.dart';
 import 'package:soccer_days/utilities/constants.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-//import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUpScreen extends StatefulWidget {
+  static const String id = 'signUp_screen';
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
-//  final _auth = FirebaseAuth.instance;
+  final _auth = FirebaseAuth.instance;
   String _fName;
   String _lName;
 //  String _phoneNumber;
@@ -28,7 +32,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return FlatButton(
       padding: EdgeInsets.only(right: 700),
       onPressed: () {
-        Navigator.pop(context);
+        Navigator.pushNamed(context, LoginScreen.id);
       },
       child: Icon(
         Icons.arrow_back_ios,
@@ -446,14 +450,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () {
+        onPressed: () async {
           if (_formKey.currentState.validate()) {
-//            final newUser = await _auth.createUserWithEmailAndPassword(
-//                email: _email, password: _confirmPass.text);
-            return null;
+            return;
           }
           _formKey.currentState.save();
-
+          try {
+            final newUser = await _auth.createUserWithEmailAndPassword(
+                email: _email, password: _confirmPass.text);
+            if (newUser != null) {
+              print('Hoorey!');
+            }
+          } catch (e) {
+            print(e);
+          }
+          Navigator.pushNamed(context, InviteFriends.id);
           print('new Sing up data submitted');
           print(_fName);
           print(_lName);

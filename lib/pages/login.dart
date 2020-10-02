@@ -6,6 +6,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 
 class LoginScreen extends StatefulWidget {
+  static const String id = 'login_screen';
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -360,13 +361,8 @@ class _LoginScreenState extends State<LoginScreen>
 
   Widget _buildSignupBtn() {
     return GestureDetector(
-      onTap: () => {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SignUpScreen(),
-          ),
-        ),
+      onTap: () {
+        Navigator.pushNamed(context, SignUpScreen.id);
       },
       child: RichText(
         text: TextSpan(
