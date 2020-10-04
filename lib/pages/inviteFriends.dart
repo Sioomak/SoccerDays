@@ -53,8 +53,12 @@ class _InviteFriends extends State<InviteFriends> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          "Your new account is successfully registered with email address: ${loggedInUser.email} ",
-          style: TextStyle(fontSize: 50.0),
+          "Your account is successfully registered:  ${loggedInUser.email} ",
+          style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'OpenSans',
+              fontSize: 50),
         ),
         SizedBox(height: 10.0),
       ],
