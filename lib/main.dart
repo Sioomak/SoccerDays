@@ -5,8 +5,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:soccer_days/pages/signup.dart';
 import 'package:soccer_days/pages/inviteFriends.dart';
 
-import 'package:soccer_days/pages/testLogin.dart';
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -20,7 +18,6 @@ class MyApp extends StatelessWidget {
         if (snapshot.hasError) {
           return null;
         }
-
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
@@ -34,7 +31,6 @@ class MyApp extends StatelessWidget {
           );
           ;
         }
-
         // Otherwise, show something whilst waiting for initialization to complete
         return null;
       },

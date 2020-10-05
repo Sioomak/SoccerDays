@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:soccer_days/utilities/constants.dart';
 import 'package:soccer_days/pages/signup.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
@@ -18,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen>
   String _password;
   bool _rememberMe = false;
   bool _obscureText = true;
-  bool isLoading = false;
+  bool _isLoading = false;
   bool logingIn = true;
 
   AnimationController controller;
@@ -32,12 +31,6 @@ class _LoginScreenState extends State<LoginScreen>
       vsync: this,
       upperBound: 120.0,
     );
-
-//    controller.forward();
-//    controller.addListener(() {
-//      setState(() {});
-//      print(controller.value);
-//    });
   }
 
   Widget _buildLogo() {
@@ -241,7 +234,7 @@ class _LoginScreenState extends State<LoginScreen>
     return Container(
         padding: EdgeInsets.symmetric(vertical: 25.0),
         width: double.infinity,
-        child: isLoading
+        child: _isLoading
             ? Center(
                 child: CircularProgressIndicator(
                   strokeWidth: 8.0,
@@ -256,7 +249,7 @@ class _LoginScreenState extends State<LoginScreen>
                 ),
                 onPressed: () {
                   setState(() {
-                    isLoading = true;
+                    _isLoading = true;
                     logingIn = false;
                   });
 
@@ -264,7 +257,7 @@ class _LoginScreenState extends State<LoginScreen>
                     return;
                   }
                   _formKey.currentState.save();
-                  print("is loading? $isLoading");
+                  print("is loading? $_isLoading");
                   print("user pass enabled? $logingIn ");
                   print(_email);
                   print(_password);
@@ -293,40 +286,9 @@ class _LoginScreenState extends State<LoginScreen>
             fontWeight: FontWeight.w400,
           ),
         ),
-//        SizedBox(height: 20.0),
-//        Text(
-//          'Sign in with',
-//          style: kLabelStyle,
-//        ),
       ],
     );
   }
-
-//This Widget is not used anymore for now
-
-//  Widget _buildSocialBtn(Function onTap, AssetImage logo) {
-//    return GestureDetector(
-//      onTap: onTap,
-//      child: Container(
-//        height: 60.0,
-//        width: 60.0,
-//        decoration: BoxDecoration(
-//          shape: BoxShape.circle,
-//          color: Colors.white,
-//          boxShadow: [
-//            BoxShadow(
-//              color: Colors.black26,
-//              offset: Offset(0, 2),
-//              blurRadius: 6.0,
-//            ),
-//          ],
-//          image: DecorationImage(
-//            image: logo,
-//          ),
-//        ),
-//      ),
-//    );
-//  }
 
   Widget _buildSocialBtnRow() {
     return Opacity(
@@ -334,7 +296,7 @@ class _LoginScreenState extends State<LoginScreen>
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 15.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             GoogleSignInButton(
               onPressed: () {/* ... */},
