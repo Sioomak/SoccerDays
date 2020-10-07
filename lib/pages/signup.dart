@@ -7,6 +7,7 @@ import 'package:soccer_days/utilities/constants.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String id = 'signUp_screen';
@@ -16,14 +17,61 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
+
+  //form inputs validators start here
+
+  String validateName(String value) {
+    if (value.isEmpty) {
+      return "Please enter your first name";
+    } else
+      return null;
+  }
+
+  String validateLastName(String value) {
+    if (value.isEmpty) {
+      return "Please enter your last name";
+    } else
+      return null;
+  }
+
+  String validateEmail(String value) {
+    if (value.isEmpty) {
+      return 'Please enter your email';
+    }
+    if (!RegExp(
+            r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+        .hasMatch(value)) {
+      return 'Please enter a valid email Address';
+    }
+    return null;
+  }
+
+  String validatePassword(value) {
+    if (value.isEmpty) {
+      return "Please enter your password";
+    } else if (value.length <= 5) {
+      return "Password should be at least 6 characters";
+    }
+    return null;
+  }
+
+  String validateConfirmPassword(String value) {
+    if (value.isEmpty) {
+      return "Please confirm your password";
+    }
+    if (value != _password.text)
+      return 'Password and confirmation password do not match.';
+    return null;
+  }
+
+  //form inputs validators end here
+
   final _auth = FirebaseAuth.instance;
   String _fName;
   String _lName;
-//  String _phoneNumber;
   String _email;
   String _selectedPosition = 'Defender';
   DateTime _selectedDate = DateTime.now();
-
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPass = TextEditingController();
 
@@ -58,12 +106,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             height: 50.0,
             child: TextFormField(
               textAlign: TextAlign.center,
-              validator: (value) {
-                if (value.isEmpty) {
-                  return "Please enter your first name";
-                } else
-                  return null;
-              },
+              validator: validateName,
               onSaved: (String value) {
                 _fName = value;
               },
@@ -106,12 +149,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             height: 50.0,
             child: TextFormField(
               textAlign: TextAlign.center,
-              validator: (value) {
-                if (value.isEmpty) {
-                  return "Please enter your last name";
-                } else
-                  return null;
-              },
+              validator: validateLastName,
               onSaved: (String value) {
                 _lName = value;
               },
@@ -136,55 +174,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ],
     );
   }
-
-//  Widget _buildPhoneNumberTF() {
-//    // This widget is not currently being used in UI
-//    return Column(
-//      crossAxisAlignment: CrossAxisAlignment.start,
-//      children: <Widget>[
-//        Text(
-//          'Phone Number',
-//          style: kLabelStyle,
-//        ),
-//        SizedBox(height: 10.0),
-//        Opacity(
-//          opacity: 0.8,
-//          child: Container(
-//            alignment: Alignment.centerLeft,
-//            decoration: kBoxDecorationStyle,
-//            height: 50.0,
-//            child: TextFormField(
-//              textAlign: TextAlign.center,
-//              validator: (value) {
-//                if (value.isEmpty) {
-//                  return "Please enter your phone number";
-//                } else
-//                  return null;
-//              },
-//              onSaved: (String value) {
-//                _phoneNumber = value;
-//              },
-//              keyboardType: TextInputType.number,
-//              style: TextStyle(
-//                color: Colors.white,
-//                fontFamily: 'OpenSans',
-//              ),
-//              decoration: InputDecoration(
-//                border: InputBorder.none,
-//                contentPadding: EdgeInsets.only(top: 14.0),
-//                prefixIcon: Icon(
-//                  Icons.phone,
-//                  color: Colors.white,
-//                ),
-//                hintText: 'Enter your phone number',
-//                hintStyle: kHintTextStyle,
-//              ),
-//            ),
-//          ),
-//        ),
-//      ],
-//    );
-//  }
 
   Widget _buildDateOfBirthTF() {
     final format = DateFormat("yyyy-MM-dd");
@@ -313,17 +302,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             height: 50.0,
             child: TextFormField(
               textAlign: TextAlign.center,
-              validator: (String value) {
-                if (value.isEmpty) {
-                  return 'Please enter your email';
-                }
-                if (!RegExp(
-                        r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-                    .hasMatch(value)) {
-                  return 'Please enter a valid email Address';
-                }
-                return null;
-              },
+              validator: validateEmail,
               onSaved: (String value) {
                 _email = value;
               },
@@ -367,12 +346,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: TextFormField(
               textAlign: TextAlign.center,
               controller: _password,
-              validator: (value) {
-                if (value.isEmpty) {
-                  return "Please confirm your password";
-                }
-                return null;
-              },
+              validator: validatePassword,
               obscureText: true,
               style: TextStyle(
                 color: Colors.white,
@@ -413,14 +387,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: TextFormField(
               textAlign: TextAlign.center,
               controller: _confirmPass,
-              validator: (value) {
-                if (value.isEmpty) {
-                  return "Please confirm your password";
-                }
-                if (value != _password.text)
-                  return 'Password and confirmation password do not match.';
-                return null;
-              },
+              validator: validateConfirmPassword,
               obscureText: true,
               style: TextStyle(
                 color: Colors.white,
@@ -444,6 +411,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Widget _buildRegisterBtn() {
+    var registerNewUser = () async {
+      //Similar to the Login Page's "onPressed" method, It works but I'm not sure if "var" is the best option here
+      if (!_formKey.currentState.validate()) {
+        return;
+      }
+      try {
+        final newUser = await _auth.createUserWithEmailAndPassword(
+            email: _email, password: _confirmPass.text);
+        if (newUser != null) {
+          print('Hoorey from Firebase!');
+        }
+      } catch (e) {
+        print(e);
+      }
+      _formKey.currentState.save();
+      Navigator.pushNamed(context, InviteFriends.id);
+    };
     return Container(
       padding: EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
@@ -454,29 +438,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           borderRadius: BorderRadius.circular(30.0),
         ),
         color: Colors.white,
-        onPressed: () async {
-          if (_formKey.currentState.validate()) {
-            _formKey.currentState.save();
-          }
-          try {
-            final newUser = await _auth.createUserWithEmailAndPassword(
-                email: _email, password: _confirmPass.text);
-            if (newUser != null) {
-              print('Hoorey from Firebase!');
-            }
-          } catch (e) {
-            print(e);
-          }
-          print('new Sing up data submitted');
-          print(_fName);
-          print(_lName);
-          print(_selectedPosition);
-          print(_email);
-          print(_password.text);
-          print(_confirmPass.text);
-          print(_selectedDate.toString());
-          Navigator.pushNamed(context, InviteFriends.id);
-        },
+        onPressed: registerNewUser,
         child: Text(
           'Register',
           style: TextStyle(
@@ -525,8 +487,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     tag: 'soccerBall',
                     child: Image.asset(
                       'assets/logos/ClipartKey_56184.png',
-//                    width: 550,
-//                    height: 550,
                     ),
                   ),
                 ),
@@ -544,15 +504,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-//                      Text(
-//                        'Sign In',
-//                        style: TextStyle(
-//                          color: Colors.white,
-//                          fontFamily: 'OpenSans',
-//                          fontSize: 40.0,
-//                          fontWeight: FontWeight.bold,
-//                        ),
-//                      ),
                         _buildBackArrow(),
                         _buildFirstNameTF(),
                         SizedBox(height: 10.0),

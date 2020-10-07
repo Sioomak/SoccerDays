@@ -20,6 +20,27 @@ class _LoginScreenState extends State<LoginScreen>
   bool _isLoading = false;
   bool logingIn = true;
 
+  String validateEmail(String value) {
+    if (value.isEmpty) {
+      return 'Please enter your email';
+    }
+    if (!RegExp(
+            r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+        .hasMatch(value)) {
+      return 'Please enter a valid email Address';
+    }
+    return null;
+  }
+
+  String validatePassword(value) {
+    if (value.isEmpty) {
+      return "Please enter your password";
+    } else if (value.length <= 5) {
+      return "Password should be at least 6 characters";
+    }
+    return null;
+  }
+
   AnimationController controller;
   Animation animation;
 
@@ -94,17 +115,7 @@ class _LoginScreenState extends State<LoginScreen>
             decoration: kBoxDecorationStyle,
             height: 70.0,
             child: TextFormField(
-              validator: (String value) {
-                if (value.isEmpty) {
-                  return 'Please enter your email';
-                }
-                if (!RegExp(
-                        r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-                    .hasMatch(value)) {
-                  return 'Please enter a valid email Address';
-                }
-                return null;
-              },
+              validator: validateEmail,
               onSaved: (String value) {
                 _email = value;
               },
@@ -146,14 +157,7 @@ class _LoginScreenState extends State<LoginScreen>
             decoration: kBoxDecorationStyle,
             height: 70.0,
             child: TextFormField(
-              validator: (String value) {
-                if (value.isEmpty) {
-                  return "Please enter your password";
-                } else if (value.length <= 5) {
-                  return "Password should be at least 6 characters";
-                }
-                return null;
-              },
+              validator: validatePassword,
               onSaved: (String value) {
                 _password = value;
               },
@@ -231,6 +235,22 @@ class _LoginScreenState extends State<LoginScreen>
   }
 
   Widget _buildLoginBtn() {
+    var onPressed = () {
+      //It works but I'm not sure if "var" is the best option here
+      if (!_formKey.currentState.validate()) {
+        return;
+      }
+      _formKey.currentState.save();
+      setState(() {
+        _isLoading = true;
+        logingIn = false;
+      });
+
+      print("is loading? $_isLoading");
+      print("user pass enabled? $logingIn ");
+      print(_email);
+      print(_password);
+    };
     return Container(
         padding: EdgeInsets.symmetric(vertical: 25.0),
         width: double.infinity,
@@ -247,21 +267,7 @@ class _LoginScreenState extends State<LoginScreen>
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
                 ),
-                onPressed: () {
-                  setState(() {
-                    _isLoading = true;
-                    logingIn = false;
-                  });
-
-                  if (!_formKey.currentState.validate()) {
-                    return;
-                  }
-                  _formKey.currentState.save();
-                  print("is loading? $_isLoading");
-                  print("user pass enabled? $logingIn ");
-                  print(_email);
-                  print(_password);
-                },
+                onPressed: onPressed,
                 color: Colors.white,
                 child: Text(
                   'LOG IN',
@@ -346,8 +352,6 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   Widget build(BuildContext context) {
-//    progressDialog = ProgressDialog(context, ProgressDialogType.Normal);
-
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
