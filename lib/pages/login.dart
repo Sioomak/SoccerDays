@@ -246,10 +246,10 @@ class _LoginScreenState extends State<LoginScreen>
         logingIn = false;
       });
 
-      print("is loading? $_isLoading");
-      print("user pass enabled? $logingIn ");
-      print(_email);
-      print(_password);
+//      print("is loading? $_isLoading");
+//      print("user pass enabled? $logingIn ");
+//      print(_email);
+//      print(_password);
     };
     return Container(
         padding: EdgeInsets.symmetric(vertical: 25.0),

@@ -278,7 +278,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 setState(() {
                   _selectedPosition = value;
                 });
-                print(_selectedPosition);
               }),
         ),
       ],
@@ -420,7 +419,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         final newUser = await _auth.createUserWithEmailAndPassword(
             email: _email, password: _confirmPass.text);
         if (newUser != null) {
-          print('Hoorey from Firebase!');
+          print('Hello from Firebase!');
         }
       } catch (e) {
         print(e);
