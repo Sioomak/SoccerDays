@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +12,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String id = 'signUp_screen';
+
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
 }
@@ -109,6 +111,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               validator: validateName,
               onSaved: (String value) {
                 _fName = value;
+
               },
               keyboardType: TextInputType.text,
               style: TextStyle(
@@ -154,6 +157,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 _lName = value;
               },
               keyboardType: TextInputType.text,
+
               style: TextStyle(
                 color: Colors.white,
                 fontFamily: 'OpenSans',

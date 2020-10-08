@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:soccer_days/pages/signup.dart';
 import 'package:soccer_days/utilities/constants.dart';
 import 'package:soccer_days/pages/signup.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
@@ -136,8 +137,8 @@ class _LoginScreenState extends State<LoginScreen>
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -188,8 +189,8 @@ class _LoginScreenState extends State<LoginScreen>
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -405,6 +406,7 @@ class _LoginScreenState extends State<LoginScreen>
                         _buildSignupBtn(),
                       ],
                     ),
+
                   ),
                 ),
               )

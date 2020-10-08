@@ -20,8 +20,9 @@ class MyApp extends StatelessWidget {
         LoginScreen.id: (context) => LoginScreen(),
         SignUpScreen.id: (context) => SignUpScreen(),
         InviteFriends.id: (context) => InviteFriends(),
+       
       },
-      debugShowCheckedModeBanner: false,
+       debugShowCheckedModeBanner: false,
     );
   }
 }
