@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "393686538350",
+    "firebase_url": "https://soccerday-e0b76.firebaseio.com",
+    "project_id": "soccerday-e0b76",
+    "storage_bucket": "soccerday-e0b76.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:393686538350:android:3c6f3ec28bb5f2819aee7f",
+        "android_client_info": {
+          "package_name": "siamak.soccer_days"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "393686538350-mqdc72r5agjt10m8kiqd3fj9gg855bg4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8KfGmMLWLLYZSlEgoOQ9vWuDLl1xNreI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "393686538350-mqdc72r5agjt10m8kiqd3fj9gg855bg4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

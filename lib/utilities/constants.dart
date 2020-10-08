@@ -12,7 +12,7 @@ final kLabelStyle = TextStyle(
 );
 
 final kBoxDecorationStyle = BoxDecoration(
-  color: Color(0xFF3e978b),
+  color: Color(0xFF206a5d),
   borderRadius: BorderRadius.circular(10.0),
   boxShadow: [
     BoxShadow(
@@ -22,3 +22,10 @@ final kBoxDecorationStyle = BoxDecoration(
     ),
   ],
 );
+
+const List<String> playersPositionsList = [
+  'Goalie',
+  'Defender',
+  'Midfielder',
+  'Forward'
+];
